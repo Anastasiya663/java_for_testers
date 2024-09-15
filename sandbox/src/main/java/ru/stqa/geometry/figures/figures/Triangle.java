@@ -1,10 +1,20 @@
 package ru.stqa.geometry.figures.figures;
 
+import javax.xml.transform.TransformerConfigurationException;
+
 public record Triangle (
         double side1,
         double side2,
         double side3
 ) {
+
+    public Triangle {
+        if (side1 < 0 || side2 < 0 || side3 < 0) {
+            throw new IllegalArgumentException("Triangle side should be non-negative");
+        } else if ((side1 + side2) < side3 || (side1 + side3) < side2 || (side2 + side3) < side1) {
+            throw new IllegalArgumentException("Triangle doesn't exist");
+        }
+    }
 
     public static void printPerimeter(Triangle triangle) {
         System.out.printf("Периметр треугольника со сторонами %f, %f и %f = %f%n", triangle.side1, triangle.side2, triangle.side3, triangle.perimeterOfTriangle());
