@@ -1,6 +1,7 @@
 package ru.stqa.geometry.figures.figures;
 
 import javax.xml.transform.TransformerConfigurationException;
+import java.util.Objects;
 
 public record Triangle (
         double side1,
@@ -34,4 +35,21 @@ public record Triangle (
                 (halfOfPerimetr - this.side2) * (halfOfPerimetr - this.side3));
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Triangle triangle = (Triangle) o;
+        return (Double.compare(this.side1, triangle.side1) == 0 && Double.compare(this.side2, triangle.side2) == 0 && Double.compare(this.side3, triangle.side3) == 0)
+                || (Double.compare(this.side1, triangle.side1) == 0 && Double.compare(this.side3, triangle.side2) == 0 && Double.compare(this.side2, triangle.side3) == 0)
+                || (Double.compare(this.side3, triangle.side1) == 0 && Double.compare(this.side1, triangle.side2) == 0 && Double.compare(this.side2, triangle.side3) == 0)
+                || (Double.compare(this.side3, triangle.side1) == 0 && Double.compare(this.side2, triangle.side2) == 0 && Double.compare(this.side1, triangle.side3) == 0)
+                || (Double.compare(this.side2, triangle.side1) == 0 && Double.compare(this.side1, triangle.side2) == 0 && Double.compare(this.side3, triangle.side3) == 0)
+                || (Double.compare(this.side2, triangle.side1) == 0 && Double.compare(this.side3, triangle.side2) == 0 && Double.compare(this.side1, triangle.side3) == 0);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(side1, side2, side3);
+    }
 }
