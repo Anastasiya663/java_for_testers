@@ -51,7 +51,6 @@ public class GroupCreationTests {
         } catch (NoSuchElementException exception) {
             return false;
         }
-
     }
 
     @Test
