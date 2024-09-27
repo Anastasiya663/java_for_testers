@@ -1,7 +1,8 @@
-package ru.stqa.addressbook.tests;
+package ru.stqa.addressbook.tests.Groups;
 
 import ru.stqa.addressbook.model.GroupData;
 import org.junit.jupiter.api.Test;
+import ru.stqa.addressbook.tests.TestBase;
 
 public class GroupRemovalTests extends TestBase {
 
