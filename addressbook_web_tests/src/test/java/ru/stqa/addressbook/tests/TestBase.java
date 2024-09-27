@@ -1,6 +1,6 @@
-package tests;
+package ru.stqa.addressbook.tests;
 
-import manager.ApplicationManager;
+import ru.stqa.addressbook.manager.ApplicationManager;
 import org.junit.jupiter.api.BeforeEach;
 
 public class TestBase {
@@ -9,9 +9,8 @@ public class TestBase {
     @BeforeEach
     public void setUp() {
         if(app == null) {
-            new ApplicationManager();
+            app = new ApplicationManager();
+            app.init(System.getProperty("browser", "chrome"));
         }
-        app.init();
     }
-
 }

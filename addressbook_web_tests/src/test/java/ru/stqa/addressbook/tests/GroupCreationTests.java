@@ -1,15 +1,9 @@
-package tests;
+package ru.stqa.addressbook.tests;
 
-import model.GroupData;
+import ru.stqa.addressbook.model.GroupData;
 import org.junit.jupiter.api.Test;
 
 public class GroupCreationTests extends TestBase {
-
-    /*@AfterEach // либо можно сделать проверки beforeAll и afterAll
-    public void tearDown() {
-        //driver.findElement(By.linkText("Logout")).click();
-        driver.quit();
-    }*/
 
     @Test
     public void canCreateGroup() {

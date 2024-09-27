@@ -1,6 +1,4 @@
-package model;
-
-import java.util.Objects;
+package ru.stqa.addressbook.model;
 
 public record GroupData(String name, String header, String footer) {
     public GroupData() {
