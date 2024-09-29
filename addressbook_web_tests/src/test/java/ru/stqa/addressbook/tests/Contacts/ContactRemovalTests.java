@@ -14,4 +14,12 @@ public class ContactRemovalTests extends TestBase {
     }
     app.contact().removeContact();
   }
+
+  @Test
+  public void canRemoveAllContacts() {
+    if (!app.contact().isContactPresent()) {
+      app.contact().createContact(new ContactData());
+    }
+    app.contact().removeAllContact();
+  }
 }

@@ -64,4 +64,14 @@ public class ContactHelper extends HelperBase {
     private void removeSelectedContact() {
         click(By.xpath("//input[@value='Delete']"));
     }
+
+    public void removeAllContact() {
+        openContactsPage();
+        selectAllContact();
+        returnToHomePage();
+    }
+
+    private void selectAllContact() {
+        click(By.xpath("//input[@id='MassCB']"));
+    }
 }
