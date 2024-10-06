@@ -3,6 +3,9 @@ package ru.stqa.addressbook.manager;
 import org.openqa.selenium.By;
 import ru.stqa.addressbook.model.ContactData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHelper extends HelperBase {
 
     public ContactHelper (ApplicationManager manager) {
@@ -15,10 +18,10 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public boolean isContactPresent() {
+    /*public boolean isContactPresent() {
         openContactsPage();
         return manager.isElementPresent(By.name("selected[]"));
-    }
+    }*/
 
     public void createContact(ContactData contact) {
         openContactsPage();
@@ -28,15 +31,15 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public void removeContact() {
+    public void removeContact(ContactData contact) {
         openContactsPage();
-        selectContact();
+        selectContact(contact);
         removeSelectedContact();
         returnToHomePage();
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     public int getCount() {
@@ -54,12 +57,7 @@ public class ContactHelper extends HelperBase {
 
     private void fillContactForm(ContactData contact) {
         type(By.name("firstname"), contact.firstName());
-        type(By.name("middlename"), contact.middleName());
         type(By.name("lastname"), contact.lastName());
-        type(By.name("company"), contact.company());
-        type(By.name("address"), contact.address());
-        type(By.name("mobile"), contact.mobile());
-        type(By.name("email"), contact.email());
     }
 
     private void initContactCreation() {
@@ -78,5 +76,17 @@ public class ContactHelper extends HelperBase {
 
     private void selectAllContact() {
         click(By.xpath("//input[@id='MassCB']"));
+    }
+
+    public List<ContactData> getList() {
+        openContactsPage();
+        var contacts = new ArrayList<ContactData>();
+        var tr = manager.driver.findElements(By.name("entry"));
+        for (var t : tr) {
+            var checkbox = t.findElement(By.cssSelector("td.center input"));
+            var id = checkbox.getAttribute("id");
+            contacts.add(new ContactData().withId(id));
+        }
+        return contacts;
     }
 }

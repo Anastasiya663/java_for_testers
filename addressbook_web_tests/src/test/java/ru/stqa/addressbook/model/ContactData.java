@@ -1,12 +1,15 @@
 package ru.stqa.addressbook.model;
 
-public record ContactData (String firstName, String middleName, String lastName, String company, String address, String mobile, String email) {
+public record ContactData (String id, String firstName, String lastName) {
 
     public ContactData() {
-        this("", "", "", "", "", "", "");
+        this("", "", "");
+    }
+    public ContactData withId(String id) {
+        return new ContactData(id, this.firstName, this.lastName);
     }
 
-    public ContactData withNameAndAddress(String firstName, String lastName, String address) {
-        return new ContactData(firstName, this.middleName, lastName, this.company, address, this.mobile, this.email);
+    public ContactData withNameAndLastName(String firstName, String lastName) {
+        return new ContactData(this.id, firstName, lastName);
     }
 }
