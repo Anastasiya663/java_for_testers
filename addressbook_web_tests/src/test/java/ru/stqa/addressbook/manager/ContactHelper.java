@@ -71,7 +71,7 @@ public class ContactHelper extends HelperBase {
     public void removeAllContact() {
         openContactsPage();
         selectAllContact();
-        returnToHomePage();
+        removeSelectedContact();
     }
 
     private void selectAllContact() {
@@ -83,9 +83,12 @@ public class ContactHelper extends HelperBase {
         var contacts = new ArrayList<ContactData>();
         var tr = manager.driver.findElements(By.name("entry"));
         for (var t : tr) {
+            var cell = t.findElements(By.tagName("td"));
+            var lastname = cell.get(1).getText();
+            var firstname = cell.get(2).getText();
             var checkbox = t.findElement(By.cssSelector("td.center input"));
             var id = checkbox.getAttribute("id");
-            contacts.add(new ContactData().withId(id));
+            contacts.add(new ContactData().withId(id).withFirstName(firstname).withLastName(lastname));
         }
         return contacts;
     }
