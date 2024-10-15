@@ -3,6 +3,8 @@ package ru.stqa.addressbook.tests;
 import ru.stqa.addressbook.manager.ApplicationManager;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.Random;
 
 public class TestBase {
@@ -16,12 +18,10 @@ public class TestBase {
         }
     }
 
-    public static String randomString(int n) {
+    public static String randomFile(String dir) {
+        var fileNames = new File(dir).list();
         var rnd = new Random();
-        var result = "";
-        for(int i = 0; i < n; i++) {
-            result = result + (char)('a' + rnd.nextInt(26));
-        }
-        return result;
+        var index = rnd.nextInt(fileNames.length);
+        return Paths.get(dir, fileNames[index]).toString();
     }
 }

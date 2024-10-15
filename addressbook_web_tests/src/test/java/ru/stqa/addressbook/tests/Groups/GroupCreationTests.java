@@ -1,11 +1,16 @@
 package ru.stqa.addressbook.tests.Groups;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.tests.TestBase;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,27 +18,33 @@ import java.util.List;
 
 public class GroupCreationTests extends TestBase {
 
-    public static List<GroupData> groupProvider() {
+    public static List<GroupData> groupProvider() throws IOException {
         var result = new ArrayList<GroupData>(List.of());
-        for (var name : (List.of("", "group name"))) {
-            for (var header : List.of("", "group header")) {
-                for (var footer : List.of("", "group footer")) {
-                    result.add(new GroupData().withName(name).withHeader(header).withFooter(footer));
+//        for (var name : (List.of("", "group name"))) {
+//            for (var header : List.of("", "group header")) {
+//                for (var footer : List.of("", "group footer")) {
+//                   result.add(new GroupData().withName(name).withHeader(header).withFooter(footer));
+//               }
+//           }
+//        }
+        /*var json = "";
+        try (var reader = new FileReader("groups.json");
+            var breader = new BufferedReader(reader)) {
+                var line = breader.readLine(); // построчно (полезно,если файл большой и из него нужно взять какие-то конкретные кусочки,а не всё)
+                while (line != null) {
+                    json = json + line;
+                    line = breader.readLine();
                 }
-            }
-        }
-        for(int i = 0; i < 5; i++) {
-           result.add(new GroupData()
-                   .withName(randomString(i*5))
-                   .withHeader(randomString(i*5))
-                   .withFooter(randomString(i*5)));
-
-        }
+        }*/
+        var json = Files.readString(Paths.get("groups.json")); //читает файл целиком
+        var mapper = new ObjectMapper(); // или YAMLMapper(); или XmlMapper(); соответственно
+        var value = mapper.readValue(json,  new TypeReference<List<GroupData>> () {});
+        result.addAll(value);
         return result;
     }
 
     public static List<GroupData> negativeGroupProvider() {
-        var result = new ArrayList<GroupData>(List.of(
+        var result = new ArrayList<>(List.of(
                 new GroupData("", "group name'", "", "")));
         return result;
     }
