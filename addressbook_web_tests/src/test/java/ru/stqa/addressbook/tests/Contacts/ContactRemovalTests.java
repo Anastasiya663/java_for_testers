@@ -14,15 +14,15 @@ public class ContactRemovalTests extends TestBase {
 
     @Test
     public void canRemoveContact() {
-        if (app.contact().getCount() == 0) {
-            app.contact().createContact(new ContactData());
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData());
         }
-        List<ContactData> oldContacts = app.contact().getList();
+        List<ContactData> oldContacts = app.hbm().getContactList();
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
         app.contact().removeContact(oldContacts.get(index));
 
-        List<ContactData> newContacts = app.contact().getList();
+        List<ContactData> newContacts = app.hbm().getContactList();
 
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.remove(index);
@@ -31,10 +31,10 @@ public class ContactRemovalTests extends TestBase {
 
     @Test
     public void canRemoveAllContacts() {
-        if (app.contact().getCount() == 0) {
-            app.contact().createContact(new ContactData());
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData());
         }
         app.contact().removeAllContact();
-        Assertions.assertEquals(0, app.contact().getCount());
+        Assertions.assertEquals(0, app.hbm().getContactCount());
     }
 }
