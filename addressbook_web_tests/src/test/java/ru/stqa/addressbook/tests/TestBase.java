@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.tests;
 
+import org.junit.jupiter.api.AfterEach;
 import ru.stqa.addressbook.manager.ApplicationManager;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -22,6 +23,11 @@ public class TestBase {
             app = new ApplicationManager();
             app.init(System.getProperty("browser", "chrome"), properties);
         }
+    }
+
+    @AfterEach
+    void checkDatabaseConsistency() {
+        app.jdbc().checkConsistency();
     }
 
     public static String randomFile(String dir) {
