@@ -37,7 +37,7 @@ public class ContactCreationTests extends TestBase {
 
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "first name'", "lastName", "", "", "")));
+                new ContactData("", "first name'", "lastName", "", "", "", "", "", "", "")));
         return result;
     }
 
@@ -68,7 +68,7 @@ public class ContactCreationTests extends TestBase {
     @MethodSource("singleRandomContact")
     public void canCreateContact(ContactData contact) {
         var oldContacts = app.hbm().getContactList();
-        app.contact().createContact(contact);
+        app.contacts().createContact(contact);
 
         var newContacts = app.hbm().getContactList();
         Comparator<ContactData> compareById = (o1, o2) -> {
@@ -96,7 +96,7 @@ public class ContactCreationTests extends TestBase {
         var group = app.hbm().getGroupList().get(0);
 
         var oldRelated = app.hbm().getContactsInGroup(group);
-        app.contact().createContact(contact, group);
+        app.contacts().createContact(contact, group);
 
         var newRelated = app.hbm().getContactsInGroup(group);
         Comparator<ContactData> compareById = (o1, o2) -> {
@@ -119,7 +119,7 @@ public class ContactCreationTests extends TestBase {
         var group = app.hbm().getGroupList().getFirst();
 
         if (app.hbm().getContactCount() == 0) {
-            app.contact().createContact(new ContactData()
+            app.contacts().createContact(new ContactData()
                             .withFirstName(CommonFunctions.randomString(5))
                             .withLastName(CommonFunctions.randomString(6))
                             .withAddress(CommonFunctions.randomString(7))
@@ -131,9 +131,9 @@ public class ContactCreationTests extends TestBase {
 
         if (oldRelated.contains(contact)) {
             contact = app.hbm().getContactList().getLast();
-            app.contact().addContactInGroup(group, contact);
+            app.contacts().addContactInGroup(group, contact);
         } else {
-            app.contact().addContactInGroup(group, contact);
+            app.contacts().addContactInGroup(group, contact);
         }
 
         var newRelated = app.hbm().getContactsInGroup(group);
@@ -153,7 +153,7 @@ public class ContactCreationTests extends TestBase {
     @MethodSource("negativeContactProvider")
     public void canNotCreateContact(ContactData contact) {
         var oldContacts = app.hbm().getContactList();
-        app.contact().createContact(contact);
+        app.contacts().createContact(contact);
         var newContacts = app.hbm().getContactList();
         Assertions.assertEquals(newContacts, oldContacts);
     }

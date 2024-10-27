@@ -60,7 +60,7 @@ public class ApplicationManager {
         }
     }
 
-    public ContactHelper contact() {
+    public ContactHelper contacts() {
         if(contact == null) {
             contact = new ContactHelper(this);
         }

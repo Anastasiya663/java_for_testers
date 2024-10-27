@@ -1,10 +1,12 @@
 package ru.stqa.addressbook.manager;
 
+import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.GroupData;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GroupHelper extends HelperBase {
 
@@ -94,22 +96,33 @@ public class GroupHelper extends HelperBase {
     }
 
     private void selectAllGroups() {
-        var checkboxes = manager.driver.findElements(By.name("selected[]"));
-        for (var checkbox : checkboxes) {
-            checkbox.click();
-        }
+        manager.driver
+                .findElements(By.name("selected[]"))
+                .forEach(WebElement::click);
+
+//        for (var checkbox : checkboxes) {
+//            checkbox.click();
+//        }
     }
 
     public List<GroupData> getList() {
         openGroupsPage();
-        var groups = new ArrayList<GroupData>();
+//        var groups = new ArrayList<GroupData>();
         var spans = manager.driver.findElements(By.cssSelector("span.group"));
-        for (var span : spans) {
-            var name = span.getText();
-            var checkbox = span.findElement(By.name("selected[]"));
-            var id = checkbox.getAttribute("value");
-            groups.add(new GroupData().withId(id).withName(name));
-        }
-        return groups;
+        return spans.stream()
+                .map(span -> {
+                    var name = span.getText();
+                    var checkbox = span.findElement(By.name("selected[]"));
+                    var id = checkbox.getAttribute("value");
+                    return new GroupData().withId(id).withName(name);
+                })
+                .collect(Collectors.toList());
+//        for (var span : spans) {
+//            var name = span.getText();
+//            var checkbox = span.findElement(By.name("selected[]"));
+//            var id = checkbox.getAttribute("value");
+//            groups.add(new GroupData().withId(id).withName(name));
+//        }
+//        return groups;
     }
 }

@@ -23,7 +23,7 @@ public class ContactRemovalTests extends TestBase {
         List<ContactData> oldContacts = app.hbm().getContactList();
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
-        app.contact().removeContact(oldContacts.get(index));
+        app.contacts().removeContact(oldContacts.get(index));
 
         List<ContactData> newContacts = app.hbm().getContactList();
 
@@ -40,7 +40,7 @@ public class ContactRemovalTests extends TestBase {
         var group = app.hbm().getGroupList().get(0);
 
         if (app.hbm().getContactCount() == 0) {
-            app.contact().createContact(new ContactData()
+            app.contacts().createContact(new ContactData()
                             .withFirstName(CommonFunctions.randomString(5))
                             .withLastName(CommonFunctions.randomString(6))
                             .withAddress(CommonFunctions.randomString(7))
@@ -49,16 +49,16 @@ public class ContactRemovalTests extends TestBase {
         }
 
         var contact = app.hbm().getContactList().get(0);
-        app.contact().addContactInGroup(group, contact);
+        app.contacts().addContactInGroup(group, contact);
 
         var oldRelated = app.hbm().getContactsInGroup(group);
-        app.contact().removeContactFromGroup(contact, group);
+        app.contacts().removeContactFromGroup(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newRelated.sort(compareById);
-        var expectedList = app.contact().getGroupWithContacts(group);
+        var expectedList = app.contacts().getGroupWithContacts(group);
         expectedList.sort(compareById);
         Assertions.assertEquals(oldRelated.size() - 1, newRelated.size());
         Assertions.assertEquals(newRelated, expectedList);
@@ -69,7 +69,7 @@ public class ContactRemovalTests extends TestBase {
         if (app.hbm().getContactCount() == 0) {
             app.hbm().createContact(new ContactData());
         }
-        app.contact().removeAllContact();
+        app.contacts().removeAllContact();
         Assertions.assertEquals(0, app.hbm().getContactCount());
     }
 }

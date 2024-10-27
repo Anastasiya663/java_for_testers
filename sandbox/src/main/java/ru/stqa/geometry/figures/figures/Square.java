@@ -8,8 +8,12 @@ public record Square (double side) {//record для сокращения зап�
         }
     }
 
-    public static void printSquareArea(Square s) {
+    public static void printArea(Square s) {
         System.out.println(String.format("Площадь квадрата со стороной %f = %f", s.side, s.area()));
+    }
+
+    public static void printPerimeter(Square s) {
+        System.out.println(String.format("Периметр квадрата со стороной %f = %f", s.side, s.perimetr()));
     }
 
     /*public static double area(double a) {
