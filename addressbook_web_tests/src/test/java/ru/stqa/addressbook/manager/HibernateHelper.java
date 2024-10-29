@@ -8,7 +8,6 @@ import ru.stqa.addressbook.manager.hbm.GroupRecord;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,6 +83,8 @@ public class HibernateHelper extends HelperBase {
                 .withLastName(record.lastname)
                 .withAddress(record.address)
                 .withEmail(record.email)
+                .withEmail2(record.email2)
+                .withEmail3(record.email3)
                 .withHomePhone(record.home)
                 .withMobilePhone(record.mobile)
                 .withWorkPhone(record.work)

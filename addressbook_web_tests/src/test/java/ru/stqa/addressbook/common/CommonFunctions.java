@@ -1,6 +1,5 @@
 package ru.stqa.addressbook.common;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -21,14 +20,5 @@ public class CommonFunctions {
 //            result = result + (char)('a' + rnd.nextInt(26));
 //        }
         return result;
-    }
-
-    public static String randomInt(int n) {
-        var rnd = new Random();
-        ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            result.add(String.valueOf(rnd.nextInt(10)));
-        }
-        return String.valueOf(result);
     }
 }
