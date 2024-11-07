@@ -12,7 +12,6 @@ public class ContactRecord {
     public int id;
     public String firstname;
     public String lastname;
-    public String middlename;
     public String address;
     public String email;
     public String email2;
