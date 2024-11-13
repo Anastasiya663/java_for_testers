@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class MailHelper extends HelperBase {
 
@@ -36,7 +37,7 @@ public class MailHelper extends HelperBase {
                         .toList();
                 inbox.close();
                 inbox.getStore().close();
-                if(result.size() > 0) {
+                if (result.size() > 0) {
                     return result;
                 }
             } catch (MessagingException e) {
@@ -80,5 +81,16 @@ public class MailHelper extends HelperBase {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String extractUrl(List<MailMessage> messages) {
+        var text = messages.get(0).content();
+        var pattern = Pattern.compile("http://\\S*");
+        var matcher = pattern.matcher(text);
+        String url = "";
+        if (matcher.find()) {
+            url = text.substring(matcher.start(), matcher.end());
+        }
+        return url;
     }
 }

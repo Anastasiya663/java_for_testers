@@ -17,13 +17,13 @@ public class RegHelper extends HelperBase {
         click(By.cssSelector("input[type = 'submit']"));
     }
 
-    public String extractUrl(List<MailMessage> messages) {
-        var text = messages.get(0).content();
+    public String extractUrl(String message) {
+        //var text = messages.get(0).content();
         var pattern = Pattern.compile("http://\\S*");
-        var matcher = pattern.matcher(text);
+        var matcher = pattern.matcher(message);
         String url = "";
         if(matcher.find()) {
-           url = text.substring(matcher.start(), matcher.end());
+           url = message.substring(matcher.start(), matcher.end());
         }
         return url;
     }
