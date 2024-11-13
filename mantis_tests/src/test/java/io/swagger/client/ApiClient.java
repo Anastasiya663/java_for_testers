@@ -54,7 +54,7 @@ import io.swagger.client.auth.OAuth;
 
 public class ApiClient {
 
-    private String basePath = "http://localhost/mantisbt-2.26.3/api/rest";
+    private String basePath = "http://localhost:8080/mantisbt-2.26.3/api/rest";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;

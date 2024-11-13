@@ -8,9 +8,14 @@ public class IssueCreationTests extends TestBase {
 
     @Test
     void canCreateIssue() {
-        app.rest().createIssue(new IssueData()
-                .withSummary(CommonFunctions.randomString(10))
-                .withDescription(CommonFunctions.randomString(50))
-                .withProject(1L));
-    }
+//        app.rest().createIssue(new IssueData() // через REST API
+//                .withSummary(CommonFunctions.randomString(10))
+//                .withDescription(CommonFunctions.randomString(50))
+//                .withProject(1L));
+//    }
+//        app.soap().createIssue(new IssueData() // через SOAP
+//                .withSummary(CommonFunctions.randomString(10))
+//                .withDescription(CommonFunctions.randomString(50))
+//                .withProject(1L));
+}
 }
